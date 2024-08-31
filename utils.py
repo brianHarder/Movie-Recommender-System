@@ -5,9 +5,9 @@ import pickle
 import tabulate
 
 def load_data():
-    item_train = np.genfromtxt('./content_item_train.csv', delimiter=',')
-    user_train = np.genfromtxt('./content_user_train.csv', delimiter=',')
-    y_train = np.genfromtxt('./content_y_train.csv', delimiter=',')
+    item_train = np.genfromtxt('./data/content_item_train.csv', delimiter=',')
+    user_train = np.genfromtxt('./data/content_user_train.csv', delimiter=',')
+    y_train = np.genfromtxt('./data/content_y_train.csv', delimiter=',')
 
     item_features = [
     "movie id", "year", "ave rating", "Action", "Adventure", "Animation", "Children", "Comedy",
@@ -18,11 +18,11 @@ def load_data():
     "Crime", "Documentary", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Thriller"
     ]
 
-    item_vecs = np.genfromtxt('./content_item_vecs.csv', delimiter=',')
+    item_vecs = np.genfromtxt('./data/content_item_vecs.csv', delimiter=',')
 
     movie_dict = defaultdict(dict)
     count = 0
-    with open('./content_movie_list.csv', newline='') as csvfile:
+    with open('./data/content_movie_list.csv', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for line in reader:
             if count == 0:
@@ -33,7 +33,7 @@ def load_data():
                 movie_dict[movie_id]["title"] = line[1]
                 movie_dict[movie_id]["genres"] = line[2]
 
-    with open('./content_user_to_genre.pickle', 'rb') as f:
+    with open('./data/content_user_to_genre.pickle', 'rb') as f:
         user_to_genre = pickle.load(f)
 
     return(item_train, user_train, y_train, item_features, user_features, item_vecs, movie_dict, user_to_genre)
