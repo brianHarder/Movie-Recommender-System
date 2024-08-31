@@ -53,15 +53,14 @@ def print_data(x_train, features, vs, u_s, maxcount=5, user=True):
     genres = features[vs:]
     header = head + genres
     disp = [split_str(header, 5)]
-    count = 0
     for i in range(maxcount):
         disp.append([x_train[i, 0].astype(int),
                      x_train[i, 1].astype(int),
                      x_train[i, 2].astype(float),
                      *x_train[i, 3:].astype(float)
                     ])
-    table = tabulate.tabulate(disp, tablefmt='html', headers="firstrow", floatfmt=flist, numalign='center')
-    return table
+
+    return tabulate.tabulate(disp, tablefmt='html', headers="firstrow", floatfmt=flist, numalign='center')
 
 
 def split_str(ifeatures, smax):
@@ -76,6 +75,10 @@ def split_str(ifeatures, smax):
 
 
 def get_user_vecs(user_id, user_train, item_vecs, user_to_genre):
+    if not user_id in user_to_genre:
+        print("invalid user ID")
+        return None
+
     user_vec_found = False
     for i in range(len(user_train)):
         if user_train[i, 0] == user_id:
@@ -102,7 +105,6 @@ def get_user_vecs(user_id, user_train, item_vecs, user_to_genre):
 def print_existing_user(y_p, y, user, items, ivs, uvs, movie_dict, maxcount=10):
     count = 0
     disp = [["y_p", "y", "user", "user genre ave", "movie rating ave", "movie id", "title", "genres"]]
-    count = 0
     for i in range(0, y.shape[0]):
         if y[i, 0] != 0:
             if count == maxcount:
@@ -122,12 +124,10 @@ def print_existing_user(y_p, y, user, items, ivs, uvs, movie_dict, maxcount=10):
                          movie_dict[movie_id]['title'],
                          movie_dict[movie_id]['genres']])
 
-    table = tabulate.tabulate(disp, tablefmt='html', headers="firstrow", floatfmt=[".1f", ".1f", ".0f", ".2f", ".1f"])
-    return table
+    return tabulate.tabulate(disp, tablefmt='html', headers="firstrow", floatfmt=[".1f", ".1f", ".0f", ".2f", ".1f"])
 
 
 def print_pred_movies(y_p, item, movie_dict, maxcount=10):
-    count = 0
     disp = [["y_p", "movie id", "rating ave", "title", "genres"]]
 
     for i in range(maxcount):
