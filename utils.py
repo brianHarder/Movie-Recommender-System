@@ -105,7 +105,7 @@ def get_user_vecs(user_id, user_train, item_vecs, user_to_genre):
 def print_existing_user(y_p, y, user, items, ivs, uvs, movie_dict, maxcount=10):
     count = 0
     disp = [["y_p", "y", "user", "user genre ave", "movie rating ave", "movie id", "title", "genres"]]
-    for i in range(0, y.shape[0]):
+    for i in range(y.shape[0]):
         if y[i, 0] != 0:
             if count == maxcount:
                 break
@@ -125,6 +125,20 @@ def print_existing_user(y_p, y, user, items, ivs, uvs, movie_dict, maxcount=10):
                          movie_dict[movie_id]['genres']])
 
     return tabulate.tabulate(disp, tablefmt='html', headers="firstrow", floatfmt=[".1f", ".1f", ".0f", ".2f", ".1f"])
+
+
+def get_precision(y_p, y, user, items, ivs, uvs, movie_dict, maxcount=10):
+    result = 0
+    count = 0
+    for i in range(y.shape[0]):
+        if y[i, 0] != 0:
+            if count == maxcount:
+                break
+            count += 1
+            if y[i, 0] >= 3.5:
+                result += 1
+
+    return result / count
 
 
 def print_pred_movies(y_p, item, movie_dict, maxcount=10):
