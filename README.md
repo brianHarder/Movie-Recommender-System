@@ -1,0 +1,1 @@
+This is a movie recommender system that uses content-based filtering to make film suggestions to users. The model is built using Tensorflow/Keras, and the data comes from a subset of the MovieLens dataset.
