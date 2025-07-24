@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a movie recommende system powered by deep learning. I used content-based filtering with movies being scored out of 5 for their relevance across various genres and users ranking their interest in those same genres. The neural networks are built using TensorFlow.
+This project is a movie recommender system powered by deep learning. I used content-based filtering with movies being scored out of 5 for their relevance across various genres and users ranking their interest in those same genres. The model has been trained on a dataset from MovieLens, and the neural networks are built using TensorFlow.
 
 ## Built With
  - TensorFlow/Keras
